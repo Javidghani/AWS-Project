@@ -1,0 +1,53 @@
+<!DOCTYPE html> 
+<html>
+  <head>
+    <title><%= content_for?(:title) ? yield(:title) : "Ghani Sports Store" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+    <%= stylesheet_link_tag 'custom', media: 'all', 'data-turbo-track': 'reload' %>
+
+      <%= javascript_importmap_tags %>
+
+    <%= yield :head %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+  </head>
+
+  <body>
+    <header class="main-header">
+      <div class="header-container">
+        <div class="logo">
+          <h1><%= link_to "Ghani Sports Store", root_path %></h1>
+        </div>
+
+        <nav class="nav-links">
+          <%= link_to "Home", root_path, class: "nav-link" %>
+          <%= link_to "Categories", categories_path, class: "nav-link" %>
+          <%= link_to "Products", products_path, class: "nav-link" %>
+
+          <% if user_signed_in? %>
+               <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "nav-link btn-logout" %>
+          <% else %>
+            <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+            <%= link_to "Sign Up", new_user_registration_path, class: "nav-link" %>
+          <% end %>
+        </nav>
+      </div>
+    </header>
+
+    <% flash.each do |key, message| %>
+      <div class="flash <%= key %>"><%= message %></div>
+    <% end %>
+
+    <main class="main-content">
+      <%= yield %>
+    </main>
+  </body>
+</html>
