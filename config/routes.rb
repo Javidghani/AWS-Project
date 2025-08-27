@@ -4,13 +4,16 @@ Rails.application.routes.draw do
   # Root page shows all categories
   root "categories#index"
 
-  # Categories with nested products index
-  resources :categories, only: [:index, :show] do
+  # Categories with nested products index using slug instead of id
+  resources :categories, only: [:index, :show], param: :slug do
     resources :products, only: [:index]
   end
 
   # Products global index and show (outside of categories)
   resources :products, only: [:index, :show]
+
+  # Cart items create route
+  resources :cart_items, only: [:create]
 
   # Health check route
   get "up" => "rails/health#show", as: :rails_health_check

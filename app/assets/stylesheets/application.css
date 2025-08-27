@@ -1,3 +1,78 @@
+@import "bootstrap/scss/bootstrap";
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #222;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 0 1rem;
+}
+
+.category-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgb(0 0 0 / 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.category-card:hover,
+.category-card:focus-within {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 16px rgb(0 0 0 / 0.15);
+}
+
+.category-link {
+  color: inherit;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.category-image-wrapper {
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+}
+
+.category-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.category-card:hover .category-image-wrapper img,
+.category-card:focus-within .category-image-wrapper img {
+  transform: scale(1.05);
+}
+
+.category-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 1rem 0 0.5rem 0;
+  color: #007bff;
+}
+
+.category-description {
+  font-size: 0.9rem;
+  color: #555;
+  padding: 0 1rem 1rem;
+  flex-grow: 1;
+}
+
+
 body {
   font-family: 'Segoe UI', sans-serif;
   background-color: #f5f7fa;

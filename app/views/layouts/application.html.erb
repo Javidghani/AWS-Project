@@ -1,53 +1,114 @@
-<!DOCTYPE html> 
-<html>
-  <head>
-    <title><%= content_for?(:title) ? yield(:title) : "Ghani Sports Store" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Ghani Sports Store</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
-    <%= stylesheet_link_tag 'custom', media: 'all', 'data-turbo-track': 'reload' %>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-      <%= javascript_importmap_tags %>
+  <style>
+    /* Basic reset and styling */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      color: #212529;
+    }
 
-    <%= yield :head %>
+    nav {
+      background-color: #222;
+      color: white;
+      padding: 0.5rem 1rem;
+    }
 
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-  </head>
+    nav .container {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-  <body>
-    <header class="main-header">
-      <div class="header-container">
-        <div class="logo">
-          <h1><%= link_to "Ghani Sports Store", root_path %></h1>
-        </div>
+    nav .brand {
+      font-weight: bold;
+      font-size: 1.25rem;
+      color: white;
+      text-decoration: none;
+    }
 
-        <nav class="nav-links">
-          <%= link_to "Home", root_path, class: "nav-link" %>
-          <%= link_to "Categories", categories_path, class: "nav-link" %>
-          <%= link_to "Products", products_path, class: "nav-link" %>
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
 
-          <% if user_signed_in? %>
-               <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "nav-link btn-logout" %>
-          <% else %>
-            <%= link_to "Login", new_user_session_path, class: "nav-link" %>
-            <%= link_to "Sign Up", new_user_registration_path, class: "nav-link" %>
-          <% end %>
-        </nav>
-      </div>
-    </header>
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      padding: 0.25rem 0.5rem;
+      transition: background-color 0.3s, color 0.3s;
+      border-radius: 3px;
+      display: inline-block;
+    }
 
-    <% flash.each do |key, message| %>
-      <div class="flash <%= key %>"><%= message %></div>
-    <% end %>
+    nav ul li a:hover,
+    nav ul li a:focus {
+      background-color: #555;
+      color: #fff;
+      outline: none;
+    }
 
-    <main class="main-content">
-      <%= yield %>
-    </main>
-  </body>
+    /* Special styling for the Sign Up button */
+    nav ul li .btn-primary {
+      background-color: #0d6efd;
+      padding: 0.35rem 0.75rem;
+      border-radius: 4px;
+      color: white;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    nav ul li .btn-primary:hover,
+    nav ul li .btn-primary:focus {
+      background-color: #084cd6;
+      outline: none;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="container">
+      <%= link_to "Ghani Sports Store", root_path, class: "brand" %>
+
+      <ul>
+        <li><%= link_to "Home", root_path %></li>
+        <li><%= link_to "Categories", categories_path %></li>
+        <li><%= link_to "Products", products_path %></li>
+      </ul>
+
+      <ul>
+        <% if user_signed_in? %>
+          <li>
+            <%= link_to "Logout", destroy_user_session_path, method: :delete, data: { confirm: "Are you sure you want to logout?" } %>
+          </li>
+        <% else %>
+          <li><%= link_to "Login", new_user_session_path %></li>
+          <li><%= link_to "Sign Up", new_user_registration_path, class: "btn-primary" %></li>
+        <% end %>
+      </ul>
+    </div>
+  </nav>
+
+  <main style="max-width: 960px; margin: 2rem auto; padding: 0 1rem;">
+    <%= yield %>
+  </main>
+</body>
 </html>
